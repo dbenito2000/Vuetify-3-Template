@@ -45,7 +45,7 @@ export const useUserStore = defineStore({
                     id: 1,
                     name: 'Diego',
                     email: 'admin@dbenito.net',
-                    avatar: 'https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png'
+                    avatar: 'https://avatars.githubusercontent.com/u/52785668?v=4'
                 }
                 return;
             }

@@ -1,16 +1,20 @@
 <template>
-  <v-app theme="dark">
+  <v-app :theme="theme">
     <v-app-bar v-if="loggedIn">Vuetify 3 Template</v-app-bar>
     <v-navigation-drawer permanent v-if="loggedIn">
-      <template v-slot:prepend>
+      <!-- <template v-slot:prepend>
         <v-list-item
           two-line
           :prepend-avatar="user.avatar"
           :title="user.name"
           :subtitle="user.email"
         ></v-list-item>
-      </template>
-
+      </template> -->
+      <v-sheet class="pa-4">
+        <v-avatar class="mb-4" size="64"> <v-img :src="user.avatar" /></v-avatar>
+        <div>{{ user.name }}</div>
+        <div>{{ user.email }}</div>
+      </v-sheet>
       <v-divider></v-divider>
       <v-list nav>
         <v-list-item
@@ -32,6 +36,10 @@
           prepend-icon="mdi-logout"
           title="Logout"
           value="logout"
+          @click="
+            loggedIn = false;
+            $router.push('/');
+          "
         ></v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -46,7 +54,8 @@ export default {
   components: {},
 
   data: () => ({
-    loggedIn: true,
+    theme: "dark",
+    loggedIn: false,
     user: {},
   }),
   methods: {
@@ -57,6 +66,10 @@ export default {
   async mounted() {
     const store = useUserStore();
     this.user = await store.getUser();
+
+    if(this.user.id) {
+      this.loggedIn = true;
+    }
   },
 };
 </script>

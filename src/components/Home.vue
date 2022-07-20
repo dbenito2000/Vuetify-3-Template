@@ -134,7 +134,6 @@ export default {
     },
     async register() {
       this.showError = false;
-      const store = useUserStore();
       if (await this.userStore.register(this.name, this.email, this.password)) {
         this.dialogActive = false;
         this.$router.push("/dashboard");
