@@ -11,7 +11,7 @@
     </v-app-bar>
     <v-img
       height="100vh"
-      src="https://i.imgur.com/iari88k.jpg"
+      :src="logoUrl"
       gradient="to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6)"
       cover
     >
@@ -115,26 +115,30 @@ export default {
     email: "",
     password: "",
   }),
+  emits: ["updateStatus"],
   methods: {
     async login() {
       this.showError = false;
 
-      const store = useUserStore();
+      
 
-      if (await store.login(this.email, this.password)) {
+      if (await this.userStore.login(this.email, this.password)) {
         this.dialogActive = false;
         this.$router.push("/dashboard");
+        this.$emit("updateStatus", true);
       } else {
         this.showError = true;
         this.password = "";
+        
       }
     },
     async register() {
       this.showError = false;
       const store = useUserStore();
-      if (await store.register(this.name, this.email, this.password)) {
+      if (await this.userStore.register(this.name, this.email, this.password)) {
         this.dialogActive = false;
         this.$router.push("/dashboard");
+        this.$emit("updateStatus", true);
       } else {
         this.showError = true;
       }

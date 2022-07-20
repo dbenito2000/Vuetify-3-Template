@@ -4,7 +4,8 @@ import axios from "axios";
 export const useUserStore = defineStore({
     id: "user",
     state: () => ({
-        user: {}
+        user: {},
+        dev: false
     }),
     actions: {
         /**
@@ -13,7 +14,7 @@ export const useUserStore = defineStore({
          * @param {string} password
          */
         async login(user, password) {
-
+            if(this.dev) return true;
             var data = {
                 username: user,
                 password: password,
@@ -39,7 +40,15 @@ export const useUserStore = defineStore({
             return true;
         },
         async refresh() {
-
+            if(this.dev) {
+                this.user={
+                    id: 1,
+                    name: 'Diego',
+                    email: 'admin@dbenito.net',
+                    avatar: 'https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png'
+                }
+                return;
+            }
             // Fill with the users data from the api
             this.user = {}
 
@@ -56,5 +65,9 @@ export const useUserStore = defineStore({
             await axios.post(import.meta.env.APP_BASEURL + '/logout');
             this.user = {};
         },
+        setDev(value) {
+            console.log(value)
+            this.dev = value;
+        }
     }
 });

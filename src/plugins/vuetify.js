@@ -7,5 +7,7 @@ import { createVuetify } from 'vuetify'
 
 export default createVuetify({
   // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
-  theme: {dark: true}  
+  theme: {
+    dark: true
+  }
 })
