@@ -102,7 +102,6 @@
   </v-main>
 </template>
 <script>
-import { useUserStore } from ".././stores/user";
 export default {
   name: "Home",
 
